@@ -47,9 +47,7 @@
         </div>
 
         <!-- Stats Cards -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
-            <!-- Total Credits Card -->
-            <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6">
+        <div class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 mb-6">
             <!-- Total Credits Card -->
             <div class="bg-white rounded-xl shadow-lg p-3 sm:p-6 transform hover:scale-105 transition-all">
                 <div class="flex flex-col sm:flex-row sm:items-center">
@@ -112,6 +110,7 @@
                 </div>
             </div>
         </div>
+        
 
         <!-- Quarters Grid -->
         <div id="quartersContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6"></div>
@@ -119,19 +118,120 @@
 
     <script>
         const coursesData = {
-            quarters: [
-                {
-                    name: "PRIMER CUATRIMESTRE",
-                    courses: [
-                        { code: "FGC-101", name: "ORIENTACIÓN ACADÉMICA INSTITUCIONAL", credits: 2, prereq: "-" },
-                        { code: "FGC-102", name: "MÉTODO DEL TRABAJO ACADÉMICO", credits: 2, prereq: "-" },
-                        { code: "FGC-103", name: "METODOLOGÍA DE LA INVESTIGACIÓN", credits: 3, prereq: "-" },
-                        { code: "ADE-101", name: "ADMINISTRACION I", credits: 3, prereq: "-" }
-                    ]
-                },
-                // ... (resto de los cuatrimestres)
+    quarters: [
+        {
+            name: "PRIMER CUATRIMESTRE",
+            courses: [
+                { code: "FGC-101", name: "ORIENTACIÓN ACADÉMICA INSTITUCIONAL", credits: 2, prereq: "-" },
+                { code: "FGC-102", name: "MÉTODO DEL TRABAJO ACADÉMICO", credits: 2, prereq: "-" },
+                { code: "FGC-103", name: "METODOLOGÍA DE LA INVESTIGACIÓN", credits: 3, prereq: "-" },
+                { code: "ADE-101", name: "ADMINISTRACION I", credits: 3, prereq: "-" }
             ]
-        };
+        },
+        {
+            name: "SEGUNDO CUATRIMESTRE",
+            courses: [
+                { code: "FGC-104", name: "LENGUA ESPAÑOLA I", credits: 3, prereq: "FGC-102" },
+                { code: "FGC-105", name: "MATEMÁTICA BÁSICA I", credits: 3, prereq: "FGC-102" },
+                { code: "FGC-106", name: "TECNOLOGÍA DE LA INFORMACIÓN Y COMUNICACIÓN I", credits: 3, prereq: "FGC-102" },
+                { code: "ING-101", name: "INTRODUCCIÓN A LA INGENIERÍA", credits: 3, prereq: "-" }
+            ]
+        },
+        {
+            name: "TERCER CUATRIMESTRE",
+            courses: [
+                { code: "FGC-107", name: "HISTORIA SOCIAL DOMINICANA", credits: 3, prereq: "FGC-102" },
+                { code: "FGC-108", name: "INGLÉS I", credits: 3, prereq: "FGC-102" },
+                { code: "DMF-209", name: "FISICA I", credits: 4, prereq: "FGC-105" },
+                { code: "INF-221", name: "INTRODUCCIÓN A LA PROGRAMACIÓN", credits: 3, prereq: "FGC-106" },
+                { code: "MTI-200", name: "MATEMÁTICA II", credits: 4, prereq: "FGC-105" }
+            ]
+        },
+        {
+            name: "CUARTO CUATRIMESTRE",
+            courses: [
+                { code: "FGC-109", name: "FILOSOFÍA", credits: 2, prereq: "FGC-102" },
+                { code: "FGC-110", name: "DESARROLLO SOSTENIBLE Y GESTIÓN DE RIESGOS", credits: 2, prereq: "FGC-102" },
+                { code: "MTI-300", name: "MATEMÁTICA III", credits: 4, prereq: "MTI-200" },
+                { code: "DMF-210", name: "FISICA II", credits: 4, prereq: "DMF-209" }
+            ]
+        },
+        {
+            name: "QUINTO CUATRIMESTRE",
+            courses: [
+                { code: "MAT-241", name: "ESTADISTICA I", credits: 3, prereq: "FGC-105" },
+                { code: "QUI-400", name: "QUÍMICA I", credits: 3, prereq: "FGC-105" },
+                { code: "INF-215", name: "INGENIERÍA ECONÓMICA", credits: 3, prereq: "MTI-200" },
+                { code: "ING-103", name: "CALCULO INTEGRAL", credits: 4, prereq: "MTI-300" }
+            ]
+        },
+        {
+            name: "SEXTO CUATRIMESTRE",
+            courses: [
+                { code: "MAT-242", name: "ESTADISTICA II", credits: 3, prereq: "MAT-241" },
+                { code: "ING-105", name: "TALLER DE MECÁNICA DE HARDWARE", credits: 3, prereq: "FGC-106" },
+                { code: "ING-104", name: "CÁLCULO VECTORIAL", credits: 4, prereq: "ING-103" },
+                { code: "INF-222", name: "SISTEMA OPERATIVO I", credits: 3, prereq: "FGC-106" },
+                { code: "ING-102", name: "CIENCIA E INGENIERÍA DE MATERIALES", credits: 4, prereq: "QUI-400" }
+            ]
+        },
+        {
+            name: "SÉPTIMO CUATRIMESTRE",
+            courses: [
+                { code: "TIC-408", name: "SEGURIDAD DE LA INFORMACIÓN", credits: 3, prereq: "FGC-106" },
+                { code: "ISW-301", name: "TALLER DE PROGRAMACIÓN I", credits: 5, prereq: "INF-221" },
+                { code: "INF-437", name: "REDES INFORMATICAS", credits: 3, prereq: "INF-222" },
+                { code: "ISW-311", name: "ANÁLISIS Y DISEÑO DE SISTEMAS", credits: 4, prereq: "INF-221" }
+            ]
+        },
+        {
+            name: "OCTAVO CUATRIMESTRE",
+            courses: [
+                { code: "ISW-221", name: "ESTRUCTURA DE DATOS", credits: 4, prereq: "ISW-301" },
+                { code: "TIC-402", name: "ETICA EN TECNOLOGÍA", credits: 2, prereq: "FGC-110" },
+                { code: "ISW-404", name: "ELECTIVA I", credits: 3, prereq: "7MO. CUAT." },
+                { code: "ISW-321", name: "TALLER DE BASES DE DATOS I", credits: 4, prereq: "ISW-311" }
+            ]
+        },
+        {
+            name: "NOVENO CUATRIMESTRE",
+            courses: [
+                { code: "ISW-302", name: "TALLER DE PROGRAMACIÓN II", credits: 5, prereq: "ISW-301" },
+                { code: "ISW-312", name: "INGENIERÍA DE SOFTWARE I", credits: 4, prereq: "ISW-301" },
+                { code: "ISW-314", name: "INGENIERÍA DE REQUISITOS Y MODELADO", credits: 4, prereq: "ISW-311" },
+                { code: "ISW-322", name: "TALLER DE BASES DE DATOS II", credits: 4, prereq: "ISW-321" },
+                { code: "ISW-324", name: "SISTEMAS DE INFORMACIÓN GEOGRÁFICA", credits: 3, prereq: "ISW-321" }
+            ]
+        },
+        {
+            name: "DÉCIMO CUATRIMESTRE",
+            courses: [
+                { code: "ISW-313", name: "INGENIERÍA DE SOFTWARE II", credits: 4, prereq: "ISW-312" },
+                { code: "ISW-303", name: "TALLER DE PROGRAMACIÓN III", credits: 5, prereq: "ISW-302" },
+                { code: "ISW-405", name: "ELECTIVA II", credits: 3, prereq: "9NO. CUAT." },
+                { code: "ISW-401", name: "PROYECTO DE SOFTWARE I", credits: 5, prereq: "ISW-312" },
+                { code: "ISW-403", name: "PASANTÍA - PRÁCTICA DE INGENIERÍA DE SOFTWARE", credits: 8, prereq: "ISW-302" }
+            ]
+        },
+        {
+            name: "UNDÉCIMO CUATRIMESTRE",
+            courses: [
+                { code: "ISW-304", name: "TALLER DE PROGRAMACIÓN IV", credits: 5, prereq: "ISW-303" },
+                { code: "ISW-305", name: "DISEÑO Y CONSTRUCCIÓN DE INTERFACES", credits: 4, prereq: "ISW-302" },
+                { code: "ISW-402", name: "PROYECTO DE SOFTWARE II", credits: 5, prereq: "ISW-401" },
+                { code: "FGC-111", name: "SEMINARIO DE GRADO", credits: 3, prereq: "FGC-103" }
+            ]
+        },
+        {
+            name: "DUODÉCIMO CUATRIMESTRE",
+            courses: [
+                { code: "ISW-323", name: "TALLER DE BASE DE DATOS III", credits: 4, prereq: "ISW-322" },
+                { code: "ISW-400", name: "INTELIGENCIA ARTIFICIAL", credits: 4, prereq: "ISW-303" },
+                { code: "ISW-600", name: "PROYECTO INTEGRADOR DE SOFTWARE: TRABAJO DE GRADO", credits: 6, prereq: "TODAS" }
+            ]
+        }
+    ]
+};
 
         let completedCourses = new Set(JSON.parse(localStorage.getItem('completedCourses') || '[]'));
 
