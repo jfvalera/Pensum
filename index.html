@@ -9,15 +9,118 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+    <style>
+        @keyframes shimmer {
+            0% { background-position: -1000px 0; }
+            100% { background-position: 1000px 0; }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes sparkle {
+            0%, 100% { opacity: 0; transform: scale(0); }
+            50% { opacity: 1; transform: scale(1); }
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .new-year-banner {
+            background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347, #FFD700);
+            background-size: 400% 400%;
+            animation: gradientBG 15s ease infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .new-year-banner::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            right: -50%;
+            bottom: -50%;
+            background: linear-gradient(45deg, 
+                rgba(255,255,255,0.1) 0%,
+                rgba(255,255,255,0.2) 50%,
+                rgba(255,255,255,0.1) 100%);
+            animation: shimmer 4s linear infinite;
+            pointer-events: none;
+        }
+
+        .sparkle {
+            position: absolute;
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: white;
+            animation: sparkle 1.5s ease-in-out infinite;
+        }
+
+        .celebration-text {
+            animation: float 3s ease-in-out infinite;
+            position: relative;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .star-icon {
+            animation: rotate 4s linear infinite;
+            display: inline-block;
+        }
+
+        .gift-icon {
+            animation: float 2s ease-in-out infinite;
+            display: inline-block;
+        }
+
+        @keyframes gradientBG {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Snowfall effect */
+        .snowflake {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: white;
+            border-radius: 50%;
+            filter: blur(1px);
+            animation: snowfall linear infinite;
+        }
+
+        @keyframes snowfall {
+            from {
+                transform: translateY(-10px);
+            }
+            to {
+                transform: translateY(60px);
+            }
+        }
+    </style>
 <body class="bg-gray-50 min-h-screen">
     <!-- New Year Banner -->
-<div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-2 sticky top-0 z-50">
-    <div class="container mx-auto px-4 flex items-center justify-center gap-2">
-        <i class="fas fa-gifts text-lg"></i>
-        <p class="text-lg" style="font-family: 'Dancing Script', cursive;">¡Feliz Año Nuevo 2025!</p>
-        <i class="fas fa-star-christmas text-lg"></i>
+<div class="new-year-banner sticky top-0 z-50 py-4">
+        <div class="container mx-auto px-4 flex items-center justify-center gap-4">
+            <div class="gift-icon">
+                <i class="fas fa-gifts text-2xl text-white"></i>
+            </div>
+            <p class="celebration-text text-2xl text-white font-bold" style="font-family: 'Dancing Script', cursive;">
+                ¡Feliz Año Nuevo 2025!
+            </p>
+            <div class="star-icon">
+                <i class="fas fa-star text-2xl text-white"></i>
+            </div>
+        </div>
+        <!-- Dynamic snowflakes will be added here by JS -->
+        <div id="snowfall"></div>
     </div>
-</div>
 
 <!-- Navigation Bar -->
 <nav class="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg sticky top-8 z-40">
@@ -430,6 +533,40 @@
         document.addEventListener('DOMContentLoaded', () => {
             renderQuarters();
             updateStats();
+        });
+    </script>
+    <script>
+        // Add sparkles
+        function createSparkles() {
+            const banner = document.querySelector('.new-year-banner');
+            for (let i = 0; i < 20; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.className = 'sparkle';
+                sparkle.style.left = `${Math.random() * 100}%`;
+                sparkle.style.top = `${Math.random() * 100}%`;
+                sparkle.style.animationDelay = `${Math.random() * 2}s`;
+                banner.appendChild(sparkle);
+            }
+        }
+
+        // Create snowfall effect
+        function createSnowflakes() {
+            const snowfallContainer = document.getElementById('snowfall');
+            for (let i = 0; i < 30; i++) {
+                const snowflake = document.createElement('div');
+                snowflake.className = 'snowflake';
+                snowflake.style.left = `${Math.random() * 100}%`;
+                snowflake.style.animationDuration = `${Math.random() * 2 + 1}s`;
+                snowflake.style.opacity = Math.random();
+                snowflake.style.animationDelay = `${Math.random() * 2}s`;
+                snowfallContainer.appendChild(snowflake);
+            }
+        }
+
+        // Initialize effects
+        document.addEventListener('DOMContentLoaded', () => {
+            createSparkles();
+            createSnowflakes();
         });
     </script>
 </body>
