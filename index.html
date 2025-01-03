@@ -9,6 +9,50 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
+    <style>
+        .modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 1000;
+            animation: fadeIn 0.2s ease-out;
+        }
+
+        .modal.show {
+            display: flex;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        @keyframes slideIn {
+            from { transform: translateY(-10%); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+
+        .modal-content {
+            animation: slideIn 0.3s ease-out;
+        }
+
+        .modal-input:focus {
+            outline: none;
+            border-color: #3b82f6;
+            box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+        }
+
+        .shake {
+            animation: shake 0.5s ease-in-out;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+    </style>
 <body class="bg-gray-50 min-h-screen">
     <!-- New Year Banner -->
 <div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-2 sticky top-0 z-50">
@@ -146,9 +190,60 @@
             </div>
         </div>
 
+        <div id="gradeModal" class="modal items-center justify-center p-4">
+            <div class="modal-content bg-white rounded-lg shadow-xl w-full max-w-md relative">
+                <!-- Encabezado del Modal -->
+                <div class="flex items-center justify-between p-4 border-b">
+                    <h3 class="text-lg font-semibold text-gray-900">Ingresar Calificación</h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-500 transition-colors">
+                        <i class="fas fa-times"></i>
+                    </button>
+                </div>
+    
+                <!-- Contenido del Modal -->
+                <div class="p-4">
+                    <div class="mb-4">
+                        <div id="courseCode" class="text-sm text-gray-500 mb-1"></div>
+                        <div id="courseName" class="text-gray-900 font-medium mb-4"></div>
+                        
+                        <label class="block text-sm font-medium text-gray-700 mb-1">
+                            Calificación (0-100)
+                        </label>
+                        <input
+                            type="number"
+                            id="gradeInput"
+                            min="0"
+                            max="100"
+                            class="modal-input w-full px-3 py-2 border rounded-lg transition-all"
+                            placeholder="Ingrese la calificación..."
+                        >
+                        <p id="errorMessage" class="mt-2 text-sm text-red-600 hidden"></p>
+                    </div>
+                    
+                    <div class="flex gap-3 mt-6">
+                        <button
+                            onclick="closeModal()"
+                            class="flex-1 px-4 py-2 text-sm font-medium text-gray-700 bg-white border border-gray-300 rounded-lg hover:bg-gray-50"
+                        >
+                            Cancelar
+                        </button>
+                        <button
+                            onclick="submitGrade()"
+                            class="flex-1 px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700"
+                        >
+                            Guardar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <!-- Quarters Grid - Optimizado para móvil -->
         <div id="quartersContainer" class="grid gap-3 sm:gap-4"></div>
     </div>
+
+    <script src="https://unpkg.com/react@17/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
 
 
     <script>
@@ -472,6 +567,97 @@ document.addEventListener('DOMContentLoaded', () => {
     updateStats();
 });
 
+    </script>
+
+    <script>
+    let currentCourseCode = null;
+
+    function showModal(code, name) {
+        currentCourseCode = code;
+        const modal = document.getElementById('gradeModal');
+        const codeElement = document.getElementById('courseCode');
+        const nameElement = document.getElementById('courseName');
+        const input = document.getElementById('gradeInput');
+        const error = document.getElementById('errorMessage');
+        
+        codeElement.textContent = code;
+        nameElement.textContent = name;
+        input.value = '';
+        error.classList.add('hidden');
+        
+        modal.classList.add('show');
+        input.focus();
+    }
+
+    function closeModal() {
+        const modal = document.getElementById('gradeModal');
+        modal.classList.remove('show');
+        currentCourseCode = null;
+    }
+
+    function showError(message) {
+        const error = document.getElementById('errorMessage');
+        const input = document.getElementById('gradeInput');
+        
+        error.textContent = message;
+        error.classList.remove('hidden');
+        input.classList.add('shake');
+        
+        setTimeout(() => {
+            input.classList.remove('shake');
+        }, 500);
+    }
+
+    function submitGrade() {
+        const input = document.getElementById('gradeInput');
+        const grade = parseFloat(input.value);
+        
+        if (!input.value) {
+            showError('Por favor ingrese una calificación');
+            return;
+        }
+        
+        if (isNaN(grade) || grade < 0 || grade > 100) {
+            showError('Por favor ingrese una calificación válida entre 0 y 100');
+            return;
+        }
+
+        completedCourses.set(currentCourseCode, grade);
+        localStorage.setItem('completedCourses', JSON.stringify([...completedCourses]));
+        updateStats();
+        renderQuarters();
+        closeModal();
+    }
+
+    // Modificar la función toggleCourse existente
+    function toggleCourse(code) {
+        if (completedCourses.has(code)) {
+            if (confirm('¿Deseas eliminar esta materia de las completadas?')) {
+                completedCourses.delete(code);
+                localStorage.setItem('completedCourses', JSON.stringify([...completedCourses]));
+                updateStats();
+                renderQuarters();
+            }
+        } else {
+            const course = findCourse(code);
+            if (course) {
+                showModal(course.code, course.name);
+            }
+        }
+    }
+
+    // Agregar eventos para cerrar el modal
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeModal();
+    });
+
+    document.getElementById('gradeModal').addEventListener('click', (e) => {
+        if (e.target.id === 'gradeModal') closeModal();
+    });
+
+    document.getElementById('gradeInput').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') submitGrade();
+    });
     </script>
 </body>
 </html>
