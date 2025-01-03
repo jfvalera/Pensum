@@ -9,118 +9,15 @@
     <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
-    <style>
-        @keyframes shimmer {
-            0% { background-position: -1000px 0; }
-            100% { background-position: 1000px 0; }
-        }
-
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        @keyframes sparkle {
-            0%, 100% { opacity: 0; transform: scale(0); }
-            50% { opacity: 1; transform: scale(1); }
-        }
-
-        @keyframes rotate {
-            from { transform: rotate(0deg); }
-            to { transform: rotate(360deg); }
-        }
-
-        .new-year-banner {
-            background: linear-gradient(45deg, #FFD700, #FFA500, #FF6347, #FFD700);
-            background-size: 400% 400%;
-            animation: gradientBG 15s ease infinite;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .new-year-banner::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            right: -50%;
-            bottom: -50%;
-            background: linear-gradient(45deg, 
-                rgba(255,255,255,0.1) 0%,
-                rgba(255,255,255,0.2) 50%,
-                rgba(255,255,255,0.1) 100%);
-            animation: shimmer 4s linear infinite;
-            pointer-events: none;
-        }
-
-        .sparkle {
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            background-color: white;
-            animation: sparkle 1.5s ease-in-out infinite;
-        }
-
-        .celebration-text {
-            animation: float 3s ease-in-out infinite;
-            position: relative;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
-        }
-
-        .star-icon {
-            animation: rotate 4s linear infinite;
-            display: inline-block;
-        }
-
-        .gift-icon {
-            animation: float 2s ease-in-out infinite;
-            display: inline-block;
-        }
-
-        @keyframes gradientBG {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Snowfall effect */
-        .snowflake {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: white;
-            border-radius: 50%;
-            filter: blur(1px);
-            animation: snowfall linear infinite;
-        }
-
-        @keyframes snowfall {
-            from {
-                transform: translateY(-10px);
-            }
-            to {
-                transform: translateY(60px);
-            }
-        }
-    </style>
 <body class="bg-gray-50 min-h-screen">
     <!-- New Year Banner -->
-<div class="new-year-banner sticky top-0 z-50 py-4">
-        <div class="container mx-auto px-4 flex items-center justify-center gap-4">
-            <div class="gift-icon">
-                <i class="fas fa-gifts text-2xl text-white"></i>
-            </div>
-            <p class="celebration-text text-2xl text-white font-bold" style="font-family: 'Dancing Script', cursive;">
-                ¡Feliz Año Nuevo 2025!
-            </p>
-            <div class="star-icon">
-                <i class="fas fa-star text-2xl text-white"></i>
-            </div>
-        </div>
-        <!-- Dynamic snowflakes will be added here by JS -->
-        <div id="snowfall"></div>
+<div class="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white py-2 sticky top-0 z-50">
+    <div class="container mx-auto px-4 flex items-center justify-center gap-2">
+        <i class="fas fa-gifts text-lg"></i>
+        <p class="text-lg" style="font-family: 'Dancing Script', cursive;">¡Feliz Año Nuevo 2025!</p>
+        <i class="fas fa-star-christmas text-lg"></i>
     </div>
+</div>
 
 <!-- Navigation Bar -->
 <nav class="bg-gradient-to-r from-blue-900 to-blue-800 text-white shadow-lg sticky top-8 z-40">
@@ -135,7 +32,7 @@
                 </div>
             </div>
             <div class="flex items-center gap-4">
-                <a href="https://www.instagram.com/juan_.apk/" target="_blank" class="text-white hover:text-yellow-400 transition-colors">
+                <a href="https://instagram.com/your_username" target="_blank" class="text-white hover:text-yellow-400 transition-colors">
                     <i class="fab fa-instagram text-xl"></i>
                 </a>
                 <div class="text-right">
@@ -152,7 +49,7 @@
                     <h1 class="text-lg font-bold">Pensum</h1>
                     <p class="text-xs italic mt-1">Falta poco para que acabe este sufrimiento xd</p>
                 </div>
-                <a href="https://instagram.com/your_username" target="_blank" class="text-white hover:text-yellow-400">
+                <a href="https://www.instagram.com/juan_.apk/profilecard/?igsh=cTNnYWRzd3V0NG9z" target="_blank" class="text-white hover:text-yellow-400">
                     <i class="fab fa-instagram text-xl"></i>
                 </a>
             </div>
@@ -164,25 +61,23 @@
 </nav>
 
     <!-- Main Content -->
-    <div class="container mx-auto px-3 sm:px-4 py-4 sm:py-6">
-        <!-- Search and Filter - Más compacto -->
-        <div class="mb-4 sm:mb-6">
-            <div class="bg-white rounded-lg shadow p-3 sm:p-4">
-                <div class="flex flex-col sm:flex-row gap-2 sm:gap-3">
-                    <div class="flex-1 relative">
-                        <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 text-sm"></i>
-                        <input type="text" 
-                               id="searchCourses" 
-                               placeholder="Buscar materias..." 
-                               class="w-full pl-8 pr-3 py-2 rounded border border-gray-200 focus:border-blue-500 text-sm">
-                    </div>
-                    <select id="filterStatus" 
-                            class="px-3 py-2 rounded border border-gray-200 focus:border-blue-500 text-sm">
-                        <option value="all">Todos</option>
-                        <option value="completed">Completados</option>
-                        <option value="pending">Pendientes</option>
-                    </select>
+    <div class="container mx-auto px-4 py-6">
+        <!-- Search and Filter -->
+        <div class="mb-6">
+            <div class="bg-white rounded-xl shadow-lg p-4 flex flex-col sm:flex-row gap-4">
+                <div class="flex-1 relative">
+                    <i class="fas fa-search absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"></i>
+                    <input type="text" 
+                           id="searchCourses" 
+                           placeholder="Buscar materias..." 
+                           class="w-full pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
                 </div>
+                <select id="filterStatus" 
+                        class="px-4 py-2 rounded-lg border border-gray-200 focus:border-blue-500 focus:ring-2 focus:ring-blue-200 transition-all">
+                    <option value="all">Todos los estados</option>
+                    <option value="completed">Completados</option>
+                    <option value="pending">Pendientes</option>
+                </select>
             </div>
         </div>
 
@@ -242,7 +137,7 @@
                         <i class="fas fa-star text-sm sm:text-base"></i>
                     </div>
                     <div>
-                        <p class="text-xs text-yellow-100">Índice</p>
+                        <p class="text-xs text-yellow-100">PGA</p>
                         <h3 class="text-base sm:text-lg font-bold">
                             <span id="gpa">0.00</span>
                         </h3>
@@ -254,7 +149,6 @@
         <!-- Quarters Grid - Optimizado para móvil -->
         <div id="quartersContainer" class="grid gap-3 sm:gap-4"></div>
     </div>
-
 
 
     <script>
@@ -374,200 +268,210 @@
     ]
 };
 
-        let completedCourses = new Set(JSON.parse(localStorage.getItem('completedCourses') || '[]'));
+// Inicializar el Map de cursos completados
+let completedCourses = new Map();
 
-        function getIconForCourse(code) {
-            const icons = {
-                'FGC': 'book',
-                'ISW': 'code',
-                'INF': 'desktop',
-                'MTI': 'calculator',
-                'DMF': 'atom',
-                'QUI': 'flask',
-                'MAT': 'square-root-alt',
-                'TIC': 'network-wired',
-                'ADE': 'briefcase'
-            };
+// Cargar datos guardados si existen
+try {
+    const savedData = localStorage.getItem('completedCourses');
+    if (savedData) {
+        completedCourses = new Map(JSON.parse(savedData));
+    }
+} catch (e) {
+    console.error('Error loading saved data:', e);
+    completedCourses = new Map();
+}
 
-            const prefix = code.split('-')[0];
-            return icons[prefix] || 'graduation-cap';
+function getIconForCourse(code) {
+    const icons = {
+        'FGC': 'book',
+        'ISW': 'code',
+        'INF': 'desktop',
+        'MTI': 'calculator',
+        'DMF': 'atom',
+        'QUI': 'flask',
+        'MAT': 'square-root-alt',
+        'TIC': 'network-wired',
+        'ADE': 'briefcase',
+        'ING': 'cogs'
+    };
+
+    const prefix = code.split('-')[0];
+    return icons[prefix] || 'graduation-cap';
+}
+
+function toggleCourse(code) {
+    if (completedCourses.has(code)) {
+        if (confirm('¿Deseas eliminar esta materia de las completadas?')) {
+            completedCourses.delete(code);
         }
-
-        function toggleCourse(code) {
-            if (completedCourses.has(code)) {
-                completedCourses.delete(code);
+    } else {
+        const grade = prompt(`Ingrese la calificación para ${code} (0-100):`, "");
+        if (grade !== null) {
+            const numGrade = parseFloat(grade);
+            if (!isNaN(numGrade) && numGrade >= 0 && numGrade <= 100) {
+                completedCourses.set(code, numGrade);
             } else {
-                completedCourses.add(code);
+                alert("Por favor ingrese una calificación válida entre 0 y 100");
+                return;
             }
-            localStorage.setItem('completedCourses', JSON.stringify([...completedCourses]));
-            updateStats();
-            renderQuarters();
+        } else {
+            return;
         }
+    }
+    
+    // Guardar en localStorage como array de arrays [código, calificación]
+    localStorage.setItem('completedCourses', JSON.stringify([...completedCourses]));
+    updateStats();
+    renderQuarters();
+}
 
-        function updateStats() {
-            const completed = [...completedCourses];
-            const totalCredits = completed.reduce((sum, code) => {
-                const course = findCourse(code);
-                return sum + (course ? course.credits : 0);
-            }, 0);
-            
-            document.getElementById('completedCredits').textContent = totalCredits;
-            document.getElementById('completedCourses').textContent = completed.length;
-            
-            // Calcular progreso total
-            const totalProgress = Math.round((completed.length / 51) * 100);
-            document.getElementById('totalProgress').textContent = totalProgress;
-            
-            // Simular GPA (en una aplicación real, esto vendría de la base de datos)
-            const gpa = (3 + Math.random()).toFixed(2);
-            document.getElementById('gpa').textContent = gpa;
+function calculatePGA() {
+    let totalPoints = 0;
+    let totalCredits = 0;
+
+    completedCourses.forEach((grade, code) => {
+        const course = findCourse(code);
+        if (course) {
+            totalPoints += (grade * course.credits);
+            totalCredits += course.credits;
         }
+    });
 
-        function findCourse(code) {
-            for (const quarter of coursesData.quarters) {
-                const course = quarter.courses.find(c => c.code === code);
-                if (course) return course;
-            }
-            return null;
-        }
+    return totalCredits > 0 ? (totalPoints / totalCredits).toFixed(2) : "0.00";
+}
 
-        function renderQuarters() {
-            const container = document.getElementById('quartersContainer');
-            container.innerHTML = '';
+function updateStats() {
+    const completed = [...completedCourses.keys()];
+    const totalCredits = completed.reduce((sum, code) => {
+        const course = findCourse(code);
+        return sum + (course ? course.credits : 0);
+    }, 0);
+    
+    document.getElementById('completedCredits').textContent = totalCredits;
+    document.getElementById('completedCourses').textContent = completed.length;
+    
+    const totalProgress = Math.round((completed.length / 51) * 100);
+    document.getElementById('totalProgress').textContent = totalProgress;
+    
+    const pga = calculatePGA();
+    document.getElementById('gpa').textContent = pga;
+}
 
-            coursesData.quarters.forEach((quarter, index) => {
-                const quarterDiv = document.createElement('div');
-                quarterDiv.className = 'bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-all';
-                
-                // Quarter Header
-                const header = document.createElement('div');
-                header.className = 'bg-gradient-to-r from-blue-600 to-blue-700 p-4';
-                header.innerHTML = `
-                    <div class="flex items-center justify-between">
-                        <div class="flex items-center space-x-3">
-                            <i class="fas fa-calendar text-white"></i>
-                            <h3 class="text-lg font-bold text-white">${quarter.name}</h3>
+function findCourse(code) {
+    for (const quarter of coursesData.quarters) {
+        const course = quarter.courses.find(c => c.code === code);
+        if (course) return course;
+    }
+    return null;
+}
+
+function renderQuarters() {
+    const container = document.getElementById('quartersContainer');
+    container.innerHTML = '';
+
+    coursesData.quarters.forEach((quarter, index) => {
+        const quarterDiv = document.createElement('div');
+        quarterDiv.className = 'bg-white rounded-xl shadow-lg overflow-hidden transform hover:scale-[1.02] transition-all';
+        
+        const header = document.createElement('div');
+        header.className = 'bg-gradient-to-r from-blue-600 to-blue-700 p-4';
+        header.innerHTML = `
+            <div class="flex items-center justify-between">
+                <div class="flex items-center space-x-3">
+                    <i class="fas fa-calendar text-white"></i>
+                    <h3 class="text-lg font-bold text-white">${quarter.name}</h3>
+                </div>
+                <span class="px-3 py-1 text-xs font-semibold bg-blue-500 text-white rounded-full">
+                    ${quarter.courses.length} materias
+                </span>
+            </div>
+        `;
+        quarterDiv.appendChild(header);
+
+        const coursesContainer = document.createElement('div');
+        coursesContainer.className = 'p-4 space-y-3';
+
+        quarter.courses.forEach(course => {
+            const isCompleted = completedCourses.has(course.code);
+            const courseCard = document.createElement('div');
+            courseCard.className = `group relative bg-gray-50 rounded-lg p-4 hover:bg-blue-50 transition-all cursor-pointer border border-gray-100 ${
+                isCompleted ? 'bg-green-50 border-green-200' : ''
+            }`;
+            courseCard.onclick = () => toggleCourse(course.code);
+
+            const icon = getIconForCourse(course.code);
+            
+            courseCard.innerHTML = `
+                <div class="flex items-start justify-between">
+                    <div class="flex-1">
+                        <div class="flex items-center space-x-2">
+                            <i class="fas fa-${icon} text-blue-600"></i>
+                            <span class="text-sm font-semibold text-blue-700">${course.code}</span>
                         </div>
-                        <span class="px-3 py-1 text-xs font-semibold bg-blue-500 text-white rounded-full">
-                            ${quarter.courses.length} materias
-                        </span>
+                        <h4 class="mt-1 text-sm font-medium text-gray-900">${course.name}</h4>
+                        
+                        <div class="mt-3 flex items-center space-x-4 text-xs text-gray-600">
+                            <div class="flex items-center">
+                                <i class="fas fa-award mr-1"></i>
+                                <span>${course.credits} CR</span>
+                            </div>
+                            ${course.prereq !== "-" ? `
+                                <div class="flex items-center">
+                                    <i class="fas fa-clock mr-1"></i>
+                                    <span>Pre: ${course.prereq}</span>
+                                </div>
+                            ` : ''}
+                            ${completedCourses.has(course.code) ? `
+                                <div class="flex items-center">
+                                    <i class="fas fa-star mr-1 text-yellow-500"></i>
+                                    <span>Nota: ${completedCourses.get(course.code)}</span>
+                                </div>
+                            ` : ''}
+                        </div>
                     </div>
-                `;
-                quarterDiv.appendChild(header);
-
-                // Courses Container
-                const coursesContainer = document.createElement('div');
-                coursesContainer.className = 'p-4 space-y-3';
-
-                quarter.courses.forEach(course => {
-                    const isCompleted = completedCourses.has(course.code);
-                    const courseCard = document.createElement('div');
-                    courseCard.className = `group relative bg-gray-50 rounded-lg p-4 hover:bg-blue-50 transition-all cursor-pointer border border-gray-100 ${
-                        isCompleted ? 'bg-green-50 border-green-200' : ''
-                    }`;
-                    courseCard.onclick = () => toggleCourse(course.code);
-
-                    const icon = getIconForCourse(course.code);
-                    
-                    courseCard.innerHTML = `
-                        <div class="flex items-start justify-between">
-                            <div class="flex-1">
-                                <div class="flex items-center space-x-2">
-                                    <i class="fas fa-${icon} text-blue-600"></i>
-                                    <span class="text-sm font-semibold text-blue-700">${course.code}</span>
-                                </div>
-                                <h4 class="mt-1 text-sm font-medium text-gray-900">${course.name}</h4>
-                                
-                                <div class="mt-3 flex items-center space-x-4 text-xs text-gray-600">
-                                    <div class="flex items-center">
-                                        <i class="fas fa-award mr-1"></i>
-                                        <span>${course.credits} CR</span>
-                                    </div>
-                                    ${course.prereq !== "-" ? `
-                                        <div class="flex items-center">
-                                            <i class="fas fa-clock mr-1"></i>
-                                            <span>Pre: ${course.prereq}</span>
-                                        </div>
-                                    ` : ''}
-                                </div>
-                            </div>
-                            <div class="ml-4">
-                                <i class="fas fa-${isCompleted ? 'check-circle text-green-500' : 'circle text-gray-300'} text-xl"></i>
-                            </div>
-                        </div>
-                        <div class="absolute inset-0 border-2 border-blue-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
-                    `;
-                    
-                    coursesContainer.appendChild(courseCard);
-                });
-
-                quarterDiv.appendChild(coursesContainer);
-                container.appendChild(quarterDiv);
-            });
-        }
-
-        function filterCourses() {
-            const searchText = document.getElementById('searchCourses').value.toLowerCase();
-            const status = document.getElementById('filterStatus').value;
+                    <div class="ml-4">
+                        <i class="fas fa-${isCompleted ? 'check-circle text-green-500' : 'circle text-gray-300'} text-xl"></i>
+                    </div>
+                </div>
+                <div class="absolute inset-0 border-2 border-blue-500 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity"></div>
+            `;
             
-            const cards = document.querySelectorAll('#quartersContainer .cursor-pointer');
-            cards.forEach(card => {
-                const text = card.textContent.toLowerCase();
-                const code = card.querySelector('.text-blue-700').textContent;
-                const isCompleted = completedCourses.has(code);
-                
-                const matchesSearch = text.includes(searchText);
-                const matchesStatus = status === 'all' || 
-                    (status === 'completed' && isCompleted) || 
-                    (status === 'pending' && !isCompleted);
-                
-                card.style.display = matchesSearch && matchesStatus ? 'block' : 'none';
-            });
-        }
-
-        // Event Listeners
-        document.getElementById('searchCourses').addEventListener('input', filterCourses);
-        document.getElementById('filterStatus').addEventListener('change', filterCourses);
-
-        // Initialize
-        document.addEventListener('DOMContentLoaded', () => {
-            renderQuarters();
-            updateStats();
+            coursesContainer.appendChild(courseCard);
         });
-    </script>
-    <script>
-        // Add sparkles
-        function createSparkles() {
-            const banner = document.querySelector('.new-year-banner');
-            for (let i = 0; i < 20; i++) {
-                const sparkle = document.createElement('div');
-                sparkle.className = 'sparkle';
-                sparkle.style.left = `${Math.random() * 100}%`;
-                sparkle.style.top = `${Math.random() * 100}%`;
-                sparkle.style.animationDelay = `${Math.random() * 2}s`;
-                banner.appendChild(sparkle);
-            }
-        }
 
-        // Create snowfall effect
-        function createSnowflakes() {
-            const snowfallContainer = document.getElementById('snowfall');
-            for (let i = 0; i < 30; i++) {
-                const snowflake = document.createElement('div');
-                snowflake.className = 'snowflake';
-                snowflake.style.left = `${Math.random() * 100}%`;
-                snowflake.style.animationDuration = `${Math.random() * 2 + 1}s`;
-                snowflake.style.opacity = Math.random();
-                snowflake.style.animationDelay = `${Math.random() * 2}s`;
-                snowfallContainer.appendChild(snowflake);
-            }
-        }
+        quarterDiv.appendChild(coursesContainer);
+        container.appendChild(quarterDiv);
+    });
+}
 
-        // Initialize effects
-        document.addEventListener('DOMContentLoaded', () => {
-            createSparkles();
-            createSnowflakes();
-        });
+function filterCourses() {
+    const searchText = document.getElementById('searchCourses').value.toLowerCase();
+    const status = document.getElementById('filterStatus').value;
+    
+    const cards = document.querySelectorAll('#quartersContainer .cursor-pointer');
+    cards.forEach(card => {
+        const text = card.textContent.toLowerCase();
+        const code = card.querySelector('.text-blue-700').textContent;
+        const isCompleted = completedCourses.has(code);
+        
+        const matchesSearch = text.includes(searchText);
+        const matchesStatus = status === 'all' || 
+            (status === 'completed' && isCompleted) || 
+            (status === 'pending' && !isCompleted);
+        
+        card.style.display = matchesSearch && matchesStatus ? 'block' : 'none';
+    });
+}
+
+// Event Listeners
+document.addEventListener('DOMContentLoaded', () => {
+    document.getElementById('searchCourses').addEventListener('input', filterCourses);
+    document.getElementById('filterStatus').addEventListener('change', filterCourses);
+    renderQuarters();
+    updateStats();
+});
+
     </script>
 </body>
 </html>
